@@ -1,0 +1,196 @@
+apiVersion: v1
+items:
+- apiVersion: networking.istio.io/v1beta1
+  kind: VirtualService
+  metadata:
+    annotations:
+      networking.internal.knative.dev/rollout: '{"configurations":[{"configurationName":"helloworld-go","percent":100,"revisions":[{"revisionName":"helloworld-go-00001","percent":100}],"stepParams":{}}]}'
+      networking.knative.dev/ingress.class: istio.ingress.networking.knative.dev
+      serving.knative.dev/creator: admin
+      serving.knative.dev/lastModifier: admin
+    creationTimestamp: "2022-11-18T02:09:29Z"
+    generation: 1
+    labels:
+      networking.internal.knative.dev/ingress: helloworld-go
+      serving.knative.dev/route: helloworld-go
+      serving.knative.dev/routeNamespace: default
+    name: helloworld-go-ingress
+    namespace: default
+    ownerReferences:
+    - apiVersion: networking.internal.knative.dev/v1alpha1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Ingress
+      name: helloworld-go
+      uid: 529b06b1-6085-4c78-ba69-aa5f00c8e1d0
+    resourceVersion: "1849053"
+    uid: 374388aa-cd72-4aa3-9235-d4a978d31fc7
+  spec:
+    gateways:
+    - knative-serving/knative-ingress-gateway
+    - knative-serving/knative-local-gateway
+    hosts:
+    - helloworld-go.default
+    - helloworld-go.default.example.com
+    - helloworld-go.default.svc
+    - helloworld-go.default.svc.wukui.local
+    http:
+    - headers:
+        request:
+          set:
+            K-Network-Hash: bd807bb0e1b98f73f469c78763e9b6db3c060bc949647b0d7cc3648cbb1d403a
+      match:
+      - authority:
+          prefix: helloworld-go.default
+        gateways:
+        - knative-serving/knative-local-gateway
+        headers:
+          K-Network-Hash:
+            exact: override
+      retries: {}
+      route:
+      - destination:
+          host: helloworld-go-00001.default.svc.wukui.local
+          port:
+            number: 80
+        headers:
+          request:
+            set:
+              Knative-Serving-Namespace: default
+              Knative-Serving-Revision: helloworld-go-00001
+        weight: 100
+    - match:
+      - authority:
+          prefix: helloworld-go.default
+        gateways:
+        - knative-serving/knative-local-gateway
+      retries: {}
+      route:
+      - destination:
+          host: helloworld-go-00001.default.svc.wukui.local
+          port:
+            number: 80
+        headers:
+          request:
+            set:
+              Knative-Serving-Namespace: default
+              Knative-Serving-Revision: helloworld-go-00001
+        weight: 100
+    - headers:
+        request:
+          set:
+            K-Network-Hash: bd807bb0e1b98f73f469c78763e9b6db3c060bc949647b0d7cc3648cbb1d403a
+      match:
+      - authority:
+          prefix: helloworld-go.default.example.com
+        gateways:
+        - knative-serving/knative-ingress-gateway
+        headers:
+          K-Network-Hash:
+            exact: override
+      retries: {}
+      route:
+      - destination:
+          host: helloworld-go-00001.default.svc.wukui.local
+          port:
+            number: 80
+        headers:
+          request:
+            set:
+              Knative-Serving-Namespace: default
+              Knative-Serving-Revision: helloworld-go-00001
+        weight: 100
+    - match:
+      - authority:
+          prefix: helloworld-go.default.example.com
+        gateways:
+        - knative-serving/knative-ingress-gateway
+      retries: {}
+      route:
+      - destination:
+          host: helloworld-go-00001.default.svc.wukui.local
+          port:
+            number: 80
+        headers:
+          request:
+            set:
+              Knative-Serving-Namespace: default
+              Knative-Serving-Revision: helloworld-go-00001
+        weight: 100
+- apiVersion: networking.istio.io/v1beta1
+  kind: VirtualService
+  metadata:
+    annotations:
+      networking.internal.knative.dev/rollout: '{"configurations":[{"configurationName":"helloworld-go","percent":100,"revisions":[{"revisionName":"helloworld-go-00001","percent":100}],"stepParams":{}}]}'
+      networking.knative.dev/ingress.class: istio.ingress.networking.knative.dev
+      serving.knative.dev/creator: admin
+      serving.knative.dev/lastModifier: admin
+    creationTimestamp: "2022-11-18T02:09:29Z"
+    generation: 1
+    labels:
+      networking.internal.knative.dev/ingress: helloworld-go
+      serving.knative.dev/route: helloworld-go
+      serving.knative.dev/routeNamespace: default
+    name: helloworld-go-mesh
+    namespace: default
+    ownerReferences:
+    - apiVersion: networking.internal.knative.dev/v1alpha1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Ingress
+      name: helloworld-go
+      uid: 529b06b1-6085-4c78-ba69-aa5f00c8e1d0
+    resourceVersion: "1849052"
+    uid: 4763c090-867e-418b-8f80-18613654abf0
+  spec:
+    gateways:
+    - mesh
+    hosts:
+    - helloworld-go.default
+    - helloworld-go.default.svc
+    - helloworld-go.default.svc.wukui.local
+    http:
+    - headers:
+        request:
+          set:
+            K-Network-Hash: bd807bb0e1b98f73f469c78763e9b6db3c060bc949647b0d7cc3648cbb1d403a
+      match:
+      - authority:
+          prefix: helloworld-go.default
+        gateways:
+        - mesh
+        headers:
+          K-Network-Hash:
+            exact: override
+      retries: {}
+      route:
+      - destination:
+          host: helloworld-go-00001.default.svc.wukui.local
+          port:
+            number: 80
+        headers:
+          request:
+            set:
+              Knative-Serving-Namespace: default
+              Knative-Serving-Revision: helloworld-go-00001
+        weight: 100
+    - match:
+      - authority:
+          prefix: helloworld-go.default
+        gateways:
+        - mesh
+      retries: {}
+      route:
+      - destination:
+          host: helloworld-go-00001.default.svc.wukui.local
+          port:
+            number: 80
+        headers:
+          request:
+            set:
+              Knative-Serving-Namespace: default
+              Knative-Serving-Revision: helloworld-go-00001
+        weight: 100
+kind: List
+metadata:
+  resourceVersion: ""

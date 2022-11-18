@@ -1,0 +1,61 @@
+apiVersion: v1
+items:
+- apiVersion: serving.knative.dev/v1
+  kind: Route
+  metadata:
+    annotations:
+      serving.knative.dev/creator: admin
+      serving.knative.dev/lastModifier: admin
+    creationTimestamp: "2022-11-18T02:09:16Z"
+    finalizers:
+    - routes.serving.knative.dev
+    generation: 1
+    labels:
+      serving.knative.dev/service: helloworld-go
+    name: helloworld-go
+    namespace: default
+    ownerReferences:
+    - apiVersion: serving.knative.dev/v1
+      blockOwnerDeletion: true
+      controller: true
+      kind: Service
+      name: helloworld-go
+      uid: ce0f1b26-9617-4cdd-84b8-58436c61151a
+    resourceVersion: "1849057"
+    uid: 2debc372-7dbf-48b5-ae93-272e1512e963
+  spec:
+    traffic:
+    - configurationName: helloworld-go
+      latestRevision: true
+      percent: 100
+  status:
+    address:
+      url: http://helloworld-go.default.svc.wukui.local
+    conditions:
+    - lastTransitionTime: "2022-11-18T02:09:28Z"
+      status: "True"
+      type: AllTrafficAssigned
+    - lastTransitionTime: "2022-11-18T02:09:28Z"
+      message: autoTLS is not enabled
+      reason: TLSNotEnabled
+      status: "True"
+      type: CertificateProvisioned
+    - lastTransitionTime: "2022-11-18T02:09:29Z"
+      message: Waiting for load balancer to be ready
+      reason: Uninitialized
+      status: Unknown
+      type: IngressReady
+    - lastTransitionTime: "2022-11-18T02:09:29Z"
+      message: Waiting for load balancer to be ready
+      reason: Uninitialized
+      status: Unknown
+      type: Ready
+    observedGeneration: 1
+    traffic:
+    - latestRevision: true
+      percent: 100
+      revisionName: helloworld-go-00001
+    url: http://helloworld-go.default.example.com
+kind: List
+metadata:
+  resourceVersion: ""
